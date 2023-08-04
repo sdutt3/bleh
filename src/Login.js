@@ -6,24 +6,10 @@ import Button from '@mui/material/Button';
 import ResponsiveAppBar from './AppBar';
 function Login() {
     const url = "http://localhost:8080/home";
-    let [searchParams, setSearchParams] = useSearchParams();
-
-    function storeSessionInfo() {
-      if (searchParams.get("token") != null) {
-        console.log("UseEffect running");
-        sessionStorage.setItem("Token", searchParams.get("token"));
-        sessionStorage.setItem("Name", searchParams.get("name"));
-        sessionStorage.setItem("Email", searchParams.get("email"));
-      }
-    };
 
     const navigate = () => {
         window.location.href = url;
     };
-
-    useEffect(() => {
-      storeSessionInfo();
-    }, []);
   return (
     <div>
     <ResponsiveAppBar></ResponsiveAppBar>
@@ -32,13 +18,12 @@ function Login() {
           <Grid container spacing={0} justify="center" direction="row" alignItems="center" justifyContent="center" sx={{ minHeight: '100vh' }}>
           <Grid item>
               <div className='d-grid'>
-                  {searchParams.get("token") == null ? <Button variant="contained" color="primary" type="submit" className="button-block" onClick={(e) => {
+                  {sessionStorage.getItem("Token") == null ? <Button variant="contained" color="primary" type="submit" className="button-block" onClick={(e) => {
                       e.preventDefault();
                       navigate();
                   }}>Sign In Using ms office</Button>: 
                   <div>
-                    <p>{searchParams.get("name")}</p>
-                    <p>{searchParams.get("email")}</p>  
+                    <p>User Logged In - Go to Profile page</p>
                   </div>}
               </div>
               </Grid>

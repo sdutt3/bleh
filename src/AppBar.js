@@ -42,7 +42,7 @@ function ResponsiveAppBar() {
     if (index == 0) {
       navigate('/Profile');
     } else {
-      navigate('/Logout');
+      window.location.href = 'http://localhost:8080/sign_out';
     }
   }
 
