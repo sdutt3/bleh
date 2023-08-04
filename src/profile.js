@@ -2,6 +2,7 @@ import React from 'react'
 // import Grid from '@material-ui/core/Grid'
 import ResponsiveAppBar from './AppBar';
 function  Profile() {
+  console.log(sessionStorage.getItem("Name"));
   return (
     <div> 
         <ResponsiveAppBar></ResponsiveAppBar>
@@ -16,7 +17,7 @@ function  Profile() {
             Email : 
             </Grid>
         </Grid> */}
-        <p> This is the user profile page</p>
+        <p> {sessionStorage.getItem("Name")}</p>
     </div>
   )
 }

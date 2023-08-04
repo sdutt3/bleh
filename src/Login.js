@@ -7,9 +7,23 @@ import ResponsiveAppBar from './AppBar';
 function Login() {
     const url = "http://localhost:8080/home";
     let [searchParams, setSearchParams] = useSearchParams();
+
+    function storeSessionInfo() {
+      if (searchParams.get("token") != null) {
+        console.log("UseEffect running");
+        sessionStorage.setItem("Token", searchParams.get("token"));
+        sessionStorage.setItem("Name", searchParams.get("name"));
+        sessionStorage.setItem("Email", searchParams.get("email"));
+      }
+    };
+
     const navigate = () => {
         window.location.href = url;
     };
+
+    useEffect(() => {
+      storeSessionInfo();
+    }, []);
   return (
     <div>
     <ResponsiveAppBar></ResponsiveAppBar>
