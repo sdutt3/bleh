@@ -11,6 +11,16 @@ function Profile() {
   let [lastname, setLastName] = useState(null);
   let [email, setEmail] = useState(null);
 
+  function fillData() {
+    if (sessionStorage.getItem("Token")) {
+      console.log("Fill");
+      setToken(sessionStorage.getItem("Token"));
+      setFirstName(sessionStorage.getItem("Name")?.split(" ")[0]);
+      setLastName(sessionStorage.getItem("Name")?.split(" ")[1]);
+      setEmail(sessionStorage.getItem("Email"));
+    }
+  }
+
   function storeSessionInfo() {
 
     if (searchParams.get("token") != null) {
@@ -18,15 +28,12 @@ function Profile() {
       sessionStorage.setItem("Token", searchParams.get("token"));
       sessionStorage.setItem("Name", searchParams.get("name"));
       sessionStorage.setItem("Email", searchParams.get("email"));
-      setToken(searchParams.get("token"));
-      setFirstName(searchParams.get("name").split(" ")[0]);
-      setLastName(searchParams.get("name").split(" ")[1]);
-      setEmail(searchParams.get("email"));
     }
   };
   
   useEffect(() => {
     storeSessionInfo();
+    fillData();
   }, []);
   return (
     <div> 
