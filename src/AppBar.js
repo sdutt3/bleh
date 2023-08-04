@@ -12,12 +12,13 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const pages = [];
 const settings = ['Profile', 'Logout'];
 
 function ResponsiveAppBar() {
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -35,6 +36,15 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleMenuClick = (index) => {
+    setAnchorElUser(null);
+    if (index == 0) {
+      navigate('/Profile');
+    } else {
+      navigate('/Logout');
+    }
+  }
 
   return (
     <AppBar position="static">
@@ -148,12 +158,10 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <Link to={setting} style={{ textDecoration: 'none', display: 'block' }}>
-                <MenuItem key={setting} to={setting}  onClick={handleCloseUserMenu}>
+              {settings.map((setting, index) => (
+                <MenuItem key={setting} onClick={() => handleMenuClick(index)} to={setting}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
-                </Link>
               ))}
             </Menu>
           </Box>

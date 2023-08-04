@@ -7,24 +7,27 @@ function  Profile() {
   return (
     <div> 
         <ResponsiveAppBar></ResponsiveAppBar>
-        <br></br>
-        <Typography variant="h3"> User Profile</Typography>
-        <br></br>
-        <Grid container direction="column" spacing={5} >
-            <Grid  item sm={6}> 
-            <item>First Name: </item>
-            <item>Data from token</item>
-            </Grid>
-            <Grid item sm={6}>
-            <item>Family Name: </item>
-            <item>Data from token</item>
-            </Grid>
-            <Grid item sm={6}>
-            <item>Email : </item>
-            <item>Data from token</item>
-            </Grid>
-        </Grid> 
-        <p> {sessionStorage.getItem("Name")}</p>
+        {sessionStorage.getItem("Token") != null ? 
+          <div>
+              <br></br>
+          <Typography variant="h3"> User Profile</Typography>
+          <br></br>
+          <Grid container direction="column" spacing={5} >
+              <Grid  item sm={6}> 
+              <item>First Name: </item>
+              <item>{sessionStorage.getItem("Name").split(" ")[0]}</item>
+              </Grid>
+              <Grid item sm={6}>
+              <item>Family Name: </item>
+              <item>{sessionStorage.getItem("Name").split(" ")[1]}</item>
+              </Grid>
+              <Grid item sm={6}>
+              <item>Email : </item>
+              <item>{sessionStorage.getItem("Email")}</item>
+              </Grid>
+          </Grid> 
+          </div> : <p>Login Please Sir</p>
+        }
     </div>
   )
 }
