@@ -3,6 +3,7 @@ import {Grid, Typography} from '@mui/material';
 import ResponsiveAppBar from './AppBar';
 import '@fontsource/roboto/500.css';
 function  Profile() {
+  console.log(sessionStorage.getItem("Name"));
   return (
     <div> 
         <ResponsiveAppBar></ResponsiveAppBar>
@@ -22,8 +23,8 @@ function  Profile() {
             <item>Email : </item>
             <item>Data from token</item>
             </Grid>
-        </Grid>
-        
+        </Grid> 
+        <p> {sessionStorage.getItem("Name")}</p>
     </div>
   )
 }
