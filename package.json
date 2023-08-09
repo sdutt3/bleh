@@ -2,6 +2,7 @@
   "name": "lt_assignment_1_frontend",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "@azure/msal-browser": "^2.38.0",
     "@babel/plugin-proposal-private-property-in-object": "7.21.11",

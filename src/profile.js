@@ -3,6 +3,8 @@ import {Grid, Typography} from '@mui/material';
 import ResponsiveAppBar from './AppBar';
 import '@fontsource/roboto/500.css';
 import { useSearchParams } from 'react-router-dom';
+import axios from 'axios';
+
 function Profile() {
 
   let [searchParams, setSearchParams] = useSearchParams();
@@ -11,29 +13,38 @@ function Profile() {
   let [lastname, setLastName] = useState(null);
   let [email, setEmail] = useState(null);
 
-  function fillData() {
-    if (sessionStorage.getItem("Token")) {
+  async function fillData(data) {
+    if (data !== null) {
       console.log("Fill");
-      setToken(sessionStorage.getItem("Token"));
-      setFirstName(sessionStorage.getItem("Name")?.split(" ")[0]);
-      setLastName(sessionStorage.getItem("Name")?.split(" ")[1]);
-      setEmail(sessionStorage.getItem("Email"));
+      var token = data['token'];
+      var firstName = data['name'].split(" ")[0];
+      var lastName = data['name'].split(" ")[1];
+      var email = data["email"];
+      fillSessionData(firstName, lastName, email, token);
+      setToken(data['token']);
+      setFirstName(data['name'].split(" ")[0]);
+      setLastName(data['name'].split(" ")[1]);
+      setEmail(data["email"]);
     }
   }
 
-  function storeSessionInfo() {
-
-    if (searchParams.get("token") != null) {
-      console.log("UseEffect running Profile");
-      sessionStorage.setItem("Token", searchParams.get("token"));
-      sessionStorage.setItem("Name", searchParams.get("name"));
-      sessionStorage.setItem("Email", searchParams.get("email"));
-    }
-  };
+  function fillSessionData(firstName, lastName, email, token) {
+      sessionStorage.setItem("token", token);
+      sessionStorage.setItem("firstName", firstName);
+      sessionStorage.setItem("lastName", lastName);
+      sessionStorage.setItem("email", email);
+  }
   
   useEffect(() => {
-    storeSessionInfo();
-    fillData();
+    axios.get("/auth")
+      .then((response) => {
+        console.log(response);
+        fillData(response.data);
+      })
+      .catch((error) => {
+        console.log("User Not logged in");
+        fillData(null);
+      })
   }, []);
   return (
     <div> 

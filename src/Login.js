@@ -18,7 +18,7 @@ function Login() {
           <Grid container spacing={0} justify="center" direction="row" alignItems="center" justifyContent="center" sx={{ minHeight: '100vh' }}>
           <Grid item>
               <div className='d-grid'>
-                  {sessionStorage.getItem("Token") == null ? <Button variant="contained" color="primary" type="submit" className="button-block" onClick={(e) => {
+                  {sessionStorage.getItem("token") == null ? <Button variant="contained" color="primary" type="submit" className="button-block" onClick={(e) => {
                       e.preventDefault();
                       navigate();
                   }}>Sign In Using ms office</Button>: 
